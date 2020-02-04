@@ -19,6 +19,7 @@
  */
 package com.omertron.themoviedbapi.model.movie;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.omertron.themoviedbapi.enumeration.MediaType;
 import com.omertron.themoviedbapi.model.media.MediaBasic;
@@ -45,6 +46,7 @@ public class MovieBasic extends MediaBasic implements Serializable {
     @JsonProperty("title")
     private String title;
     @JsonProperty("video")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean video = null;
     @JsonProperty("rating")
     private float userRating = -1f;
@@ -101,7 +103,7 @@ public class MovieBasic extends MediaBasic implements Serializable {
         this.title = title;
     }
 
-    public boolean isVideo() {
+    public Boolean isVideo() {
         return video;
     }
 

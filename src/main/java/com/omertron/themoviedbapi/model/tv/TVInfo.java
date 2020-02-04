@@ -21,6 +21,7 @@ package com.omertron.themoviedbapi.model.tv;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.omertron.themoviedbapi.enumeration.MovieMethod;
 import com.omertron.themoviedbapi.enumeration.TVMethod;
 import com.omertron.themoviedbapi.interfaces.AppendToResponse;
 import com.omertron.themoviedbapi.model.Genre;
@@ -31,6 +32,7 @@ import com.omertron.themoviedbapi.model.media.AlternativeTitle;
 import com.omertron.themoviedbapi.model.media.MediaCreditList;
 import com.omertron.themoviedbapi.model.media.Translation;
 import com.omertron.themoviedbapi.model.media.Video;
+import com.omertron.themoviedbapi.model.movie.MovieInfo;
 import com.omertron.themoviedbapi.model.movie.ProductionCompany;
 import com.omertron.themoviedbapi.model.network.Network;
 import com.omertron.themoviedbapi.model.person.ContentRating;
@@ -95,6 +97,8 @@ public class TVInfo extends TVBasic implements Serializable, AppendToResponse<TV
     private List<Keyword> keywords = Collections.emptyList();
     private List<Translation> translations = Collections.emptyList();
     private List<TVInfo> similarTV = Collections.emptyList();
+    //TODO: movie or series
+    private List<MovieInfo> recommendations = Collections.emptyList();
     private List<Video> videos = Collections.emptyList();
 
     //<editor-fold defaultstate="collapsed" desc="Getters and Setters">
@@ -287,6 +291,12 @@ public class TVInfo extends TVBasic implements Serializable, AppendToResponse<TV
         addMethod(TVMethod.SIMILAR);
     }
 
+    @JsonSetter("recommendations")
+    public void seRecommendations(WrapperGenericList<MovieInfo> recommendations) {
+        this.recommendations = recommendations.getResults();
+        addMethod(TVMethod.RECOMMENDATIONS);
+    }
+
     @JsonSetter("videos")
     public void setVideos(WrapperGenericList<Video> videos) {
         this.videos = videos.getResults();
@@ -329,6 +339,10 @@ public class TVInfo extends TVBasic implements Serializable, AppendToResponse<TV
 
     public List<TVInfo> getSimilarTV() {
         return similarTV;
+    }
+
+    public List<MovieInfo> getRecommendations() {
+        return recommendations;
     }
 
     public List<Video> getVideos() {

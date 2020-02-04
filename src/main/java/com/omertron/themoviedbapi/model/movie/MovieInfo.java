@@ -37,6 +37,7 @@ import com.omertron.themoviedbapi.model.list.UserList;
 import com.omertron.themoviedbapi.model.credits.MediaCreditCast;
 import com.omertron.themoviedbapi.model.credits.MediaCreditCrew;
 import com.omertron.themoviedbapi.model.media.MediaCreditList;
+import com.omertron.themoviedbapi.model.person.ExternalID;
 import com.omertron.themoviedbapi.model.review.Review;
 import com.omertron.themoviedbapi.results.WrapperAlternativeTitles;
 import com.omertron.themoviedbapi.results.WrapperChanges;
@@ -47,10 +48,7 @@ import com.omertron.themoviedbapi.results.WrapperReleaseInfo;
 import com.omertron.themoviedbapi.results.WrapperTranslations;
 import com.omertron.themoviedbapi.results.WrapperVideos;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Movie Info
@@ -81,8 +79,11 @@ public class MovieInfo extends MovieBasic implements Serializable, Identificatio
     private List<Language> spokenLanguages = Collections.emptyList();
     @JsonProperty("tagline")
     private String tagline;
+    @JsonProperty("release_dates")
+    private Map<String, Object> releaseDates;
     @JsonProperty("status")
     private String status;
+    private ExternalID externalIDs = new ExternalID();
     // AppendToResponse
     private final Set<MovieMethod> methods = EnumSet.noneOf(MovieMethod.class);
     // AppendToResponse Properties
@@ -144,6 +145,11 @@ public class MovieInfo extends MovieBasic implements Serializable, Identificatio
         return status;
     }
     // </editor-fold>
+
+
+    public Map<String, Object> getReleaseDates() {
+        return releaseDates;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Setter methods">
     public void setBelongsToCollection(Collection belongsToCollection) {
@@ -228,6 +234,10 @@ public class MovieInfo extends MovieBasic implements Serializable, Identificatio
         return similarMovies;
     }
 
+    public List<MovieInfo> getRecommendations() {
+        return recommendations;
+    }
+
     public List<UserList> getLists() {
         return lists;
     }
@@ -246,6 +256,12 @@ public class MovieInfo extends MovieBasic implements Serializable, Identificatio
     public void setAlternativeTitles(WrapperAlternativeTitles alternativeTitles) {
         this.alternativeTitles = alternativeTitles.getTitles();
         addMethod(MovieMethod.ALTERNATIVE_TITLES);
+    }
+
+    @JsonSetter("external_ids")
+    public void setExternalIDs(ExternalID externalIDs) {
+        this.externalIDs = externalIDs;
+        addMethod(MovieMethod.EXTERNAL_IDS);
     }
 
     @JsonSetter("credits")
@@ -270,6 +286,11 @@ public class MovieInfo extends MovieBasic implements Serializable, Identificatio
     public void setReleases(WrapperReleaseInfo releases) {
         this.releases = releases.getCountries();
         addMethod(MovieMethod.RELEASES);
+    }
+
+    public MovieInfo setReleaseDates(Map<String, Object> releaseDates) {
+        this.releaseDates = releaseDates;
+        return this;
     }
 
     @JsonSetter("videos")
@@ -321,5 +342,9 @@ public class MovieInfo extends MovieBasic implements Serializable, Identificatio
     @Override
     public boolean hasMethod(MovieMethod method) {
         return methods.contains(method);
+    }
+
+    public ExternalID getExternalIDs() {
+        return externalIDs;
     }
 }

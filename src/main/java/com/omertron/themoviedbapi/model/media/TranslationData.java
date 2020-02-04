@@ -19,82 +19,87 @@
  */
 package com.omertron.themoviedbapi.model.media;
 
-import com.omertron.themoviedbapi.model.AbstractJsonMapping;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
+import com.omertron.themoviedbapi.model.AbstractJsonMapping;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.io.Serializable;
+
 /**
  * @author Stuart
  */
-public class Translation extends AbstractJsonMapping implements Serializable {
+public class TranslationData extends AbstractJsonMapping implements Serializable {
 
     private static final long serialVersionUID = 100L;
 
-    @JsonProperty("english_name")
-    private String englishName;
-    @JsonProperty("iso_639_1")
-    private String language;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("iso_3166_1")
-    private String country;
-    @JsonProperty("data")
-    private TranslationData data;
-
-    public String getEnglishName() {
-        return englishName;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("overview")
+    private String overview;
+    @JsonProperty("homepage")
+    private String homepage;
+    @JsonProperty("tagline")
+    private String tagline;
 
     public String getName() {
         return name;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setEnglishName(String englishName) {
-        this.englishName = englishName;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public void setName(String name) {
+    public TranslationData setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public String getTitle() {
+        return title;
     }
 
-    public TranslationData getData() {
-        return data;
+    public TranslationData setTitle(String title) {
+        this.title = title;
+        return this;
     }
 
-    public Translation setData(TranslationData data) {
-        this.data = data;
+    public String getOverview() {
+        return overview;
+    }
+
+    public TranslationData setOverview(String overview) {
+        this.overview = overview;
+        return this;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public TranslationData setHomepage(String homepage) {
+        this.homepage = homepage;
+        return this;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public TranslationData setTagline(String tagline) {
+        this.tagline = tagline;
         return this;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Translation) {
-            final Translation other = (Translation) obj;
+        if (obj instanceof TranslationData) {
+            final TranslationData other = (TranslationData) obj;
             return new EqualsBuilder()
                     .append(name, other.name)
-                    .append(englishName, other.englishName)
-                    .append(language, other.language)
-                    .append(data, other.data)
+                    .append(overview, other.overview)
+                    .append(homepage, other.homepage)
+                    .append(tagline, other.tagline)
                     .isEquals();
         } else {
             return false;
@@ -104,10 +109,10 @@ public class Translation extends AbstractJsonMapping implements Serializable {
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(englishName)
-                .append(language)
                 .append(name)
-                .append(data)
+                .append(overview)
+                .append(homepage)
+                .append(tagline)
                 .toHashCode();
     }
 
