@@ -37,6 +37,7 @@ public enum TVMethod implements AppendToResponseMethod {
     IMAGES,
     KEYWORDS,
     SIMILAR,
+    RECOMMENDATIONS,
     TRANSLATIONS,
     VIDEOS;
 

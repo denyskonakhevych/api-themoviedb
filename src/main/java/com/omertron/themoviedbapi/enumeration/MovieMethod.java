@@ -40,7 +40,8 @@ public enum MovieMethod implements AppendToResponseMethod {
     REVIEWS,
     SIMILAR,
     TRANSLATIONS,
-    VIDEOS;
+    VIDEOS,
+    EXTERNAL_IDS;
 
     /**
      * Get the string to use in the URL
